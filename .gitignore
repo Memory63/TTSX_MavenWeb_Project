@@ -1,0 +1,14 @@
+# 所有class后缀的文件
+*.class
+# 所有jar后缀的文件
+*.jar
+*.iml
+*.war
+# .idea 文件夹
+.idea
+# 所有.txt 文件
+*.txt
+# 数据库连接参数 文件
+db.properties
+# abc.txt除外，不忽略
+!abc.txt
