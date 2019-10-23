@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface GoodsService  {
 
-    List<Goods> queryGoodsByTid(Integer tid);
+    List<Goods> queryGoodsByTid(Integer tid,String rank);
+
+    Goods queryGoodsById(Integer id);
 
 }

@@ -30,4 +30,11 @@ public class GoodsTypeController {
         model.addAttribute("goodsTypes",goodsTypes);
         return "WEB-INF/goods_type";
     }
+
+    @GetMapping("queryGoodsByTid")
+    public String queryGoodsByTid(Model model,Integer tid, String path){
+        GoodsType goodsType = goodsTypeService.queryGoodsTypeById(tid);
+        model.addAttribute("goodsType",goodsType);
+        return "WEB-INF/"+path;
+    }
 }

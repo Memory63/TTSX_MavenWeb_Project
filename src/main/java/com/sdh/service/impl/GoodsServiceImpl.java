@@ -22,8 +22,13 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsDao goodsDao;
 
     @Override
-    public List<Goods> queryGoodsByTid(Integer tid) {
-        List<Goods> goods = goodsDao.queryGoodsByTid(tid);
+    public List<Goods> queryGoodsByTid(Integer tid,String rank) {
+        List<Goods> goods = goodsDao.queryGoodsByTid(tid,rank);
         return goods;
+    }
+
+    @Override
+    public Goods queryGoodsById(Integer id) {
+        return goodsDao.queryGoodsById(id);
     }
 }

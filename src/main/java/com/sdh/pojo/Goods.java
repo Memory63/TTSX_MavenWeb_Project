@@ -22,9 +22,15 @@ public class Goods {
     private Integer tid;
     private String goodsName;
     private String picture;
+    private String pictureDetail;
     private Date pubdate;
     private BigDecimal price;
     private Double weight;
     private String intro;
+    private String detail;
+    private String show;
+    /**
+     * 一对多查询
+     */
     private GoodsType goodsType;
 }

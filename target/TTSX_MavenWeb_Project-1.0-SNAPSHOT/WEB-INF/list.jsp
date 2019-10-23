@@ -6,52 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>天天生鲜-商品列表</title>
 	<link rel="stylesheet" type="text/css" href="../css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../css/main.css">
-</head>
-<body>
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="login.jsp">登录</a>
-					<span>|</span>
-					<a href="register.jsp">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="user_center_info.jsp">用户中心</a>
-					<span>|</span>
-					<a href="cart.jsp">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order.jsp">我的订单</a>
-				</div>
-			</div>
-		</div>		
-	</div>
+	<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+	</head>
+	<body>
 
-	<div class="search_bar clearfix">
-		<a href="index.jsp" class="logo fl"><img src="../images/logo.png"></a>
-		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>
-		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">1</div>
-		</div>
-	</div>
+	<%@ include file="head.jsp"%>
 
 	<div class="navbar_con">
-		<div class="navbar clearfix">
+			<div class="navbar clearfix">
 			<div class="subnav_con fl">
 				<h1>全部商品分类</h1>	
 				<span></span>			
@@ -77,7 +47,7 @@
 	<div class="breadcrumb">
 		<a href="#">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+		<a href="#">${goodsTypeName}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -101,157 +71,34 @@
 
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="#" class="active">默认</a>
-				<a href="#">价格</a>
-				<a href="#">人气</a>
+				<a id="default" href="${pageContext.request.contextPath}/goods/queryAllGoods?tid=${tid}" class="${rank==null?"active":''}">默认</a>
+				<a id="desc" href="${pageContext.request.contextPath}/goods/queryAllGoods?tid=${tid}&rank=desc" class="${rank=="desc"?"active":''}">价格⬇</a>
+				<a id="asc" href="${pageContext.request.contextPath}/goods/queryAllGoods?tid=${tid}&rank=asc" class="${rank=="asc"?"active":''}">价格⬆</a>
 			</div>
 
 			<ul class="goods_type_list clearfix">
-				<li>
-					<a href="detail.jsp"><img src="../images/goods/goods003.jpg"></a>
-					<h4><a href="detail.jsp">大兴大棚草莓</a></h4>
-					<div class="operate">
-						<span class="prize">￥16.80</span>
-						<span class="unit">16.80/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods004.jpg"></a>
-					<h4><a href="#">吐鲁番梨光杏</a></h4>
-					<div class="operate">
-						<span class="prize">￥5.50</span>
-						<span class="unit">5.50/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods005.jpg"></a>
-					<h4><a href="#">黄肉桃</a></h4>
-					<div class="operate">
-						<span class="prize">￥10.00</span>
-						<span class="unit">10.00/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods006.jpg"></a>
-					<h4><a href="#">进口西梅</a></h4>
-					<div class="operate">
-						<span class="prize">￥28.80</span>
-						<span class="unit">28.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods007.jpg"></a>
-					<h4><a href="#">香梨</a></h4>
-					<div class="operate">
-						<span class="prize">￥6.45</span>
-						<span class="unit">6.45/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods008.jpg"></a>
-					<h4><a href="#">栗子</a></h4>
-					<div class="operate">
-						<span class="prize">￥9.50</span>
-						<span class="unit">9.50/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods009.jpg"></a>
-					<h4><a href="#">海南香蕉</a></h4>
-					<div class="operate">
-						<span class="prize">￥3.30</span>
-						<span class="unit">3.30/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods010.jpg"></a>
-					<h4><a href="#">青苹果</a></h4>
-					<div class="operate">
-						<span class="prize">￥5.00</span>
-						<span class="unit">5.00/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods011.jpg"></a>
-					<h4><a href="#">山莓</a></h4>
-					<div class="operate">
-						<span class="prize">￥28.80</span>
-						<span class="unit">28.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="../images/goods/goods012.jpg"></a>
-					<h4><a href="#">奇异果</a></h4>
-					<div class="operate">
-						<span class="prize">￥25.80</span>
-						<span class="unit">25.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				<li>
-					<a href="#"><img src="../images/goods/goods013.jpg"></a>
-					<h4><a href="#">蜜桔</a></h4>
-					<div class="operate">
-						<span class="prize">￥4.80</span>
-						<span class="unit">4.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				<li>
-					<a href="#"><img src="../images/goods/goods014.jpg"></a>
-					<h4><a href="#">脐橙</a></h4>
-					<div class="operate">
-						<span class="prize">￥3.50</span>
-						<span class="unit">3.50/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				<li>
-					<a href="#"><img src="../images/goods/goods001.jpg"></a>
-					<h4><a href="#">进口柠檬</a></h4>
-					<div class="operate">
-						<span class="prize">￥3.90</span>
-						<span class="unit">3.90/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-				<li>
-					<a href="#"><img src="../images/goods/goods002.jpg"></a>
-					<h4><a href="#">玫瑰香葡萄</a></h4>
-					<div class="operate">
-						<span class="prize">￥16.80</span>
-						<span class="unit">16.80/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
+                <c:forEach items="${goodsAll.getList()}" var="g" varStatus="vs">
+					<li>
+						<a href="${pageContext.request.contextPath}/goods/queryDetail?id=${g.id}&tid=${g.tid}"><img src="../images/${g.picture}"></a>
+						<h4><a href="${pageContext.request.contextPath}/goods/queryDetail?id=${g.id}&tid=${g.tid}">${g.goodsName}</a></h4>
+						<div class="operate">
+							<span class="prize">￥${g.price}</span>
+							<span class="unit">${g.price}/${g.weight}g</span>
+							<a href="#" class="add_goods" title="加入购物车"></a>
+						</div>
+					</li>
+				</c:forEach>
 			</ul>
 
 			<div class="pagenation">
-				<a href="#"><上一页</a>
-				<a href="#" class="active">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">下一页></a>
+				<a href="${pageContext.request.contextPath}/goods/queryAllGoods
+				?pageNum=${goodsAll.prePage}&pageSize=${goodsAll.pageSize}&tid=${tid}&rank=${rank}">上一页</a>
+                <c:forEach var="p" begin="${goodsAll.navigateFirstPage}" end="${goodsAll.navigateLastPage}" varStatus="vs" step="1">
+					<a href="${pageContext.request.contextPath}/goods/queryAllGoods
+				?pageNum=${vs.count}&pageSize=${goodsAll.pageSize}&tid=${tid}&rank=${rank}" class="active">${vs.count}</a>
+				</c:forEach>
+				<a href="${pageContext.request.contextPath}/goods/queryAllGoods
+				?pageNum=${goodsAll.nextPage}&pageSize=${goodsAll.pageSize}&tid=${tid}&rank=${rank}" class="active">下一页</a>
 			</div>
 		</div>
 	</div>

@@ -14,29 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 <body>
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
-			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
-				</div>
-				<div class="login_btn fl">
-					<a href="login.jsp">登录</a>
-					<span>|</span>
-					<a href="register.jsp">注册</a>
-				</div>
-				<div class="user_link fl">
-					<span>|</span>
-					<a href="user_center_info.jsp">用户中心</a>
-					<span>|</span>
-					<a href="cart.jsp">我的购物车</a>
-					<span>|</span>
-					<a href="user_center_order.jsp">我的订单</a>
-				</div>
-			</div>
-		</div>		
-	</div>
+	<%@ include file="head.jsp"%>
 
 	<div class="search_bar clearfix">
 		<a href="index.jsp" class="logo fl"><img src="../images/logo.png"></a>

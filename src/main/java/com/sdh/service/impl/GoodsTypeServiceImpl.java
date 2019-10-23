@@ -33,7 +33,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService {
     @Override
     public GoodsType queryGoodsTypeById(Integer id) {
         GoodsType goodsType = goodsTypeDao.queryGoodsTypeById(id);
-        List<Goods> goods = goodsDao.queryGoodsByTid(id);
+        List<Goods> goods = goodsDao.queryGoodsByTid(id,null);
         goodsType.setGoodsList(goods);
         return goodsType;
     }
