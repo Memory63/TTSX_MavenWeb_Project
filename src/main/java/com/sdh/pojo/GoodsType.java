@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName GoodsType
@@ -22,4 +23,6 @@ public class GoodsType {
     private String typeClass;
     private Date createDate;
     private String goodsPath;
+    private String typeImg;
+    private List<Goods> goodsList;
 }

@@ -17,4 +17,6 @@ public interface GoodsTypeService {
      * @return
      */
     List<GoodsType> queryAllGoodsType();
+
+    GoodsType queryGoodsTypeById(Integer id);
 }

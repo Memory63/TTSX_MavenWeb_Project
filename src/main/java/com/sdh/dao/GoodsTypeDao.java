@@ -1,6 +1,7 @@
 package com.sdh.dao;
 
 import com.sdh.pojo.GoodsType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,12 @@ public interface GoodsTypeDao {
      * @return
      */
     List<GoodsType> queryAllGoodsType();
+
+    /**
+     * todo: 根据id获取商品类型
+     * @param id
+     * @return
+     */
+    GoodsType queryGoodsTypeById(@Param("id") Integer id);
 
 }
