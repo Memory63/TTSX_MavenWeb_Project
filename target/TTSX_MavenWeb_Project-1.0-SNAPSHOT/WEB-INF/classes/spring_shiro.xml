@@ -1,0 +1,65 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+                            http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+                        ">
+
+    <!-- Realm -->
+    <bean id="realm" class="com.sdh.realm.MyRealm">
+        <property name="userService" ref="userServiceImpl"></property>
+        <!-- 密码比对器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <property name="hashAlgorithmName" value="SHA-256"></property>
+                <property name="hashIterations" value="1000"></property>
+                <!-- true表示16竞争编码，false表示bases64编码 -->
+                <property name="storedCredentialsHexEncoded" value="false"></property>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- securityManager核心组件 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="realm"></property>
+        <property name="rememberMeManager" ref="rememberMeManager"></property>
+        <property name="sessionManager" ref="sessionManager"></property>
+    </bean>
+
+    <!-- shiroFilter -->
+    <!-- 生产SpringShiroFilter
+         （ 持有shiro的过滤相关规则，可进行请求的过滤校验，校验请求是否合法 ）
+    -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+    </bean>
+    
+    <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="name" value="rememberMe"></property>
+        <property name="httpOnly" value="true"></property>
+        <property name="maxAge" value="604800"></property>
+    </bean>
+
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="simpleCookie"/>
+    </bean>
+    
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- session的cookie和记住我的cookie不可以使用同一个
+             session的cookie不设置就是用默认的cookie
+        -->
+<!--        <property name="sessionIdCookie" ref="simpleCookie"></property>-->
+        <!-- session过期时间 -->
+        <property name="globalSessionTimeout" value="60000"></property>
+        <!-- 开启检测器,默认是开启的 -->
+        <property name="sessionValidationSchedulerEnabled" value="true"></property>
+        <!-- 每隔一定时间去检测session时候可用 -->
+        <property name="sessionValidationInterval" value="15000"></property>
+        <property name="sessionListeners">
+            <list>
+                <bean class="com.sdh.session.MySessionListener"></bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>
