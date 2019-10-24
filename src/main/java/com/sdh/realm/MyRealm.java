@@ -31,7 +31,6 @@ public class MyRealm extends AuthenticatingRealm{
         if(user==null){
             return null;
         }
-        System.out.println("用户登录成功"+user);
         return new SimpleAuthenticationInfo(
                 user.getUsername(),
                 user.getPassword(),

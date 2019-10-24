@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdh.dao.CartDao">
+
+    <insert id="insertCart" parameterType="Cart">
+        insert into cart values(#{uid},#{gid},#{num},#{money})
+    </insert>
+
+    <select id="queryCartByUidAndGid" resultType="Cart">
+        select * from cart where uid=#{uid} and gid=#{gid}
+    </select>
+
+    <update id="updateCart" parameterType="Cart">
+        update cart set num=#{num},money=#{money} where uid=#{uid} and gid=#{gid}
+    </update>
+
+    <select id="getCountCart" resultType="integer">
+        select count(*) from cart where uid=#{uid}
+    </select>
+
+    <select id="queryCartByUid" resultType="Cart">
+        select * from cart where uid=#{uid}
+    </select>
+
+</mapper>

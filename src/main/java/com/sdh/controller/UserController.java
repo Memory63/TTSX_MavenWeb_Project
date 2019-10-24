@@ -5,6 +5,7 @@ import com.sdh.service.UserService;
 import com.sdh.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,9 +48,13 @@ public class UserController {
         }else{
             token.setRememberMe(false);
         }
-
         try {
             subject.login(token);
+            //获取登录之后，shiro保存的session
+            Session session = subject.getSession();
+            User user = userService.queryUserByUsername(token.getUsername());
+            System.out.println(user);
+            session.setAttribute("uid",user.getUid());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("登录失败");
