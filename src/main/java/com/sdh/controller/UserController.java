@@ -55,6 +55,7 @@ public class UserController {
             User user = userService.queryUserByUsername(token.getUsername());
             System.out.println(user);
             session.setAttribute("uid",user.getUid());
+            session.setAttribute("username",user.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("登录失败");

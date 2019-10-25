@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 	<script type="text/javascript">
+		/* 修改购买数量 */
 		function change(data) {
 		    var num = parseFloat($("#number").val());
 		    var price1 = $("#price1").text();
@@ -30,6 +31,12 @@
 			var price = Number(price1*num).toFixed(2);
 			$("#number").attr("value",num);
 			$("#price2").text(price);
+		}
+
+		/* 添加购物车 */
+        function addCart(gid,price){
+			var num = $("#number").val();
+			window.location='/TTSX_MavenWeb_Project/cart/insert?uid=${uid}&gid='+gid+'&num='+num+'&money='+price;
 		}
 	</script>
 </head>
@@ -90,7 +97,7 @@
 			<div class="total">总价：<em id="price2" >${goods.price}</em>元</div>
 			<div class="operate_btn">
 				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
+				<a href="javascript:;" onclick="addCart(${goods.id},${goods.price})" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>

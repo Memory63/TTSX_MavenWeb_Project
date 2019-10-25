@@ -22,4 +22,6 @@ public interface CartService {
     Integer getCountCart(Integer uid);
 
     List<Cart> queryCartByUid(Integer uid);
+
+    void deleteCart(Integer gid);
 }

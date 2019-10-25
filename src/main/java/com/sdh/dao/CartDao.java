@@ -46,4 +46,10 @@ public interface CartDao {
      * @return
      */
     List<Cart> queryCartByUid(@Param("uid") Integer uid);
+
+    /**
+     * todo: 根据id删除购物车中的商品
+     * @param gid
+     */
+    void deleteCart(@Param("gid") Integer gid);
 }

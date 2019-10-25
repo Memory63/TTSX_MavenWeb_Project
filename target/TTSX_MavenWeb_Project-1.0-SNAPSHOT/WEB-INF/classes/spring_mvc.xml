@@ -34,4 +34,7 @@
 
     <!-- 加载静态文件 -->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <!-- 定义无Controller的path<->view直接映射,设置项目默认打开项目 -->
+    <mvc:view-controller path="/" view-name="redirect:/user/index" />
 </beans>
