@@ -5,7 +5,6 @@ import com.sdh.service.UserService;
 import com.sdh.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class UserController {
      */
     @PostMapping("login")
     @ResponseBody
-    public String login(String username, String password, String code, String remember){
+    public String login(String username, String password, String code, String remember, HttpSession session){
         if(StringUtils.isEmpty(username)||StringUtils.isEmpty(password)||StringUtils.isEmpty(code)){
             System.out.println("输入信息不完整");
             return "0";
@@ -51,11 +50,9 @@ public class UserController {
         try {
             subject.login(token);
             //获取登录之后，shiro保存的session
-            Session session = subject.getSession();
             User user = userService.queryUserByUsername(token.getUsername());
-            System.out.println(user);
             session.setAttribute("uid",user.getUid());
-            session.setAttribute("username",user.getUsername());
+            session.setAttribute("user",user);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("登录失败");

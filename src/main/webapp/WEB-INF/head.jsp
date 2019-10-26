@@ -13,19 +13,16 @@
     <script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
     <script type="text/javascript">
-        $(function () {
             window.load(cart());
             function cart(){
                 $.ajax({
                     url:'/TTSX_MavenWeb_Project/cart/showCount',
                     type:'post',
-                    data:'uid='+${uid},
                     success:function (data) {
                         $('#show_count').text(data);
                     }
                 })
             }
-        })
     </script>
 </head>
 <body>
@@ -75,7 +72,7 @@
     <shiro:user>
         <div class="guest_cart fr">
             <a href="${pageContext.request.contextPath}/cart/query?uid=${uid}" class="cart_name fl">我的购物车</a>
-            <div class="goods_count fl" id="show_count">0</div>
+            <div class="goods_count fl" id="show_count"></div>
         </div>
     </shiro:user>
 </div>

@@ -50,7 +50,7 @@
         -->
 <!--        <property name="sessionIdCookie" ref="simpleCookie"></property>-->
         <!-- session过期时间 -->
-        <property name="globalSessionTimeout" value="60000"></property>
+        <property name="globalSessionTimeout" value="600000"></property>
         <!-- 开启检测器,默认是开启的 -->
         <property name="sessionValidationSchedulerEnabled" value="true"></property>
         <!-- 每隔一定时间去检测session时候可用 -->

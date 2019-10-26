@@ -1,7 +1,9 @@
 package com.sdh.controller;
 
 import com.sdh.pojo.Cart;
+import com.sdh.pojo.User;
 import com.sdh.service.CartService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -33,36 +36,40 @@ public class CartController {
      * @return
      */
     @RequestMapping("insert")
-    public String insertCart(Cart cart){
-        if(cart.getUid()==null||cart.getGid()==null||cart.getNum()==null||cart.getMoney()==null){
-            System.out.println("账号未登录，请登录");
-            return "redirect:/user/login";
-        }
+    @RequiresAuthentication
+    @ResponseBody
+    public String insertCart(Cart cart, HttpSession session){
+        User user = (User) session.getAttribute("user");
         //查看购物车中该用户是否添加过该商品，添加过进行累加，否则重新添加
+        System.out.println(user);
+        cart.setUid(user.getUid());
         Cart cart1 = cartService.queryCartByUidAndGid(cart.getUid(),cart.getGid());
         if(cart1==null){
             //如果没有查到说明该用户没有添加过该商品，直接进行添加
             cart.setMoney(cart.getMoney().multiply(new BigDecimal(cart.getNum())));
+            System.out.println("添加购物车:"+cart);
             cartService.insertCart(cart);
         }else{
             //如果查到说明该用户在购物车中添加过该商品，修改商品数量和商品的总价钱
             Integer num = cart1.getNum()+cart.getNum();
             System.out.println(cart.getMoney().multiply(new BigDecimal(num)));
+            cart1.setNum(num);
             cart1.setMoney(cart.getMoney().multiply(new BigDecimal(num)));
             cartService.updateCart(cart1);
         }
-        return "redirect:/user/index";
+        return "1";
     }
 
     /**
      * todo: 获取该用户购物车中添加的商品数量
-     * @param uid
+     * @param session
      * @return
      */
     @PostMapping("showCount")
     @ResponseBody
-    public Integer showCartCount(Integer uid){
-        Integer num = cartService.getCountCart(uid);
+    public Integer showCartCount(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Integer num = cartService.getCountCart(user.getUid());
         return num;
     }
 
@@ -93,12 +100,10 @@ public class CartController {
      * @return
      */
     @GetMapping("deleteCart")
+    @RequiresAuthentication
     @ResponseBody
-    public String deleteCart(Integer gid){
-        System.out.println(gid);
-        if(gid==null){
-            return "0";
-        }
+    public String deleteCart(Model model,Integer gid,HttpSession session){
+        User user = (User) session.getAttribute("user");
         System.out.println("删除成功");
         cartService.deleteCart(gid);
         return "1";

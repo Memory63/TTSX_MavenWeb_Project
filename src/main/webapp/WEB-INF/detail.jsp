@@ -36,7 +36,24 @@
 		/* 添加购物车 */
         function addCart(gid,price){
 			var num = $("#number").val();
-			window.location='/TTSX_MavenWeb_Project/cart/insert?uid=${uid}&gid='+gid+'&num='+num+'&money='+price;
+			<%--window.location='/TTSX_MavenWeb_Project/cart/insert?uid=${uid}&gid='+gid+'&num='+num+'&money='+price;--%>
+			$.ajax({
+				url:'/TTSX_MavenWeb_Project/cart/insert',
+				type:'post',
+                data:'gid='+gid+'&num='+num+'&money='+price,
+                success:function (data) {
+					if(data==1){
+						alert("添加成功")
+                        // window.load(cart());
+					}else{
+						alert("添加失败")
+					}
+				},
+				error:function () {
+					alert("添加购物车异常");
+				}
+
+			})
 		}
 	</script>
 </head>
@@ -137,19 +154,8 @@
 		</div>
 	</div>
 
-	<div class="footer">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
+    <%@ include file="footer.jsp"%>
+
 	<div class="add_jump"></div>
 
 	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
@@ -167,7 +173,8 @@
 				'top': $to_x+7},
 				"fast", function() {
 					$(".add_jump").fadeOut('fast',function(){
-						$('#show_count').html(2);
+						// $('#show_count').html();
+                        cart();
 					});
 
 			});
