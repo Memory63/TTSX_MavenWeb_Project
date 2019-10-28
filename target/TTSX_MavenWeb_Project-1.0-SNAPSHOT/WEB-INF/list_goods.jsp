@@ -26,7 +26,9 @@
                 <c:if test="${gl.show==1}">
                     <li>
                         <h4><a href="${pageContext.request.contextPath}/goods/queryDetail?id=${gl.id}">${gl.goodsName}</a></h4>
-                        <a href="${pageContext.request.contextPath}/goods/queryDetail?id=${gl.id}&tid=${gl.tid}"><img src="../images/${gl.picture}"></a>
+                        <a href="${pageContext.request.contextPath}/goods/queryDetail?id=${gl.id}&tid=${gl.tid}">
+                            <img src="http://localhost:8089/TTSX_MavenWeb_Project/images/${gl.picture}">
+                        </a>
                         <div class="prize">¥ ${gl.price}</div>
                     </li>
                 </c:if>

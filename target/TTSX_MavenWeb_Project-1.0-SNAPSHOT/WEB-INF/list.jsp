@@ -79,7 +79,9 @@
 			<ul class="goods_type_list clearfix">
                 <c:forEach items="${goodsAll.getList()}" var="g" varStatus="vs">
 					<li>
-						<a href="${pageContext.request.contextPath}/goods/queryDetail?id=${g.id}&tid=${g.tid}"><img src="../images/${g.picture}"></a>
+						<a href="${pageContext.request.contextPath}/goods/queryDetail?id=${g.id}&tid=${g.tid}">
+							<img src="http://localhost:8089/TTSX_MavenWeb_Project/images/${g.picture}">
+						</a>
 						<h4><a href="${pageContext.request.contextPath}/goods/queryDetail?id=${g.id}&tid=${g.tid}">${g.goodsName}</a></h4>
 						<div class="operate">
 							<span class="prize">￥${g.price}</span>

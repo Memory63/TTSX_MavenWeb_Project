@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sdh.dao.GoodsDao">
 
+    <cache type="com.sdh.cache.MyCache"/>
+
     <select id="queryGoodsByTid" resultType="Goods">
         select * from goods
         where tid=#{tid}

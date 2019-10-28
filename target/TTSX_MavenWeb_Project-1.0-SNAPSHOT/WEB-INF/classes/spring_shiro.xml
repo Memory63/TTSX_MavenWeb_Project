@@ -5,6 +5,11 @@
 							http://www.springframework.org/schema/beans/spring-beans.xsd
                         ">
 
+    <!-- 声明CacheManager,注意Cache不用声明，会由CacheManager创建 -->
+    <!--<bean class="com.sdh.cache.MySchiroCacheManager" id="cacheManager">
+        <property name="template" ref="redisTemplate"/>
+    </bean>-->
+
     <!-- Realm -->
     <bean id="realm" class="com.sdh.realm.MyRealm">
         <property name="userService" ref="userServiceImpl"></property>
@@ -24,6 +29,8 @@
         <property name="realm" ref="realm"></property>
         <property name="rememberMeManager" ref="rememberMeManager"></property>
         <property name="sessionManager" ref="sessionManager"></property>
+        <!-- 注册自定义的CacheManager -->
+        <!--<property name="cacheManager" ref="cacheManager"/>-->
     </bean>
 
     <!-- shiroFilter -->

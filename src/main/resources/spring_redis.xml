@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/mvc
+							http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                            http://www.springframework.org/schema/p
+							http://www.springframework.org/schema/p/spring-p.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最多空闲连接数 -->
+        <property name="maxIdle" value="1" />
+        <!-- 最多有多少连接 -->
+        <property name="maxTotal" value="5" />
+        <property name="minIdle" value="1"></property>
+        <!-- 连接数用完时，是否阻塞，阻塞超过maxWaitMillis会抛出异常 -->
+        <property name="blockWhenExhausted" value="true" />
+        <!-- 检出连接时，最大等待时长 -->
+        <property name="maxWaitMillis" value="30000" />
+        <!-- 在检出时是否检测 -->
+        <property name="testOnBorrow" value="false" />
+        <!-- 空闲时是否检测连接是否可用 -->
+        <property name="testWhileIdle" value="false"></property>
+        <!-- Evict=驱逐  连接至少要空闲多少时间才会成为可以被驱逐线程扫描并移除 -->
+        <property name="minEvictableIdleTimeMillis" value="60000"></property>
+        <!-- 驱逐线程 两次驱逐之间要sleep的时间 如果小于0，则不会有驱逐线程，则minEvictableIdleTimeMillis无效-->
+        <property name="timeBetweenEvictionRunsMillis" value="30000"></property>
+        <!-- 驱逐线程每次最多扫描几个连接 -->
+        <property name="numTestsPerEvictionRun" value="3"></property>
+        <!-- last in first out 检出策略 后入先出  或 先入先出 -->
+        <property name="lifo" value="true"></property>
+    </bean>
+
+    <!-- 连接Factory -->
+    <bean id="jedisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!-- Redis主机 -->
+        <property name="hostName" value="192.168.146.128"></property>
+        <property name="port" value="8000"></property>
+        <!-- 连接池配置信息 -->
+        <property name="poolConfig" ref="jedisPoolConfig"></property>
+    </bean>
+
+    <!-- 如果没有设置序列化，则默认使用DefaultSerializer。
+             声明序列化组件
+        -->
+    <bean id="ss" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+    <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" id="jacks" />
+    <bean class="com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer" id="fast"></bean>
+    <!-- RedisTemplate:核心组件 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connectionFactory-ref="jedisConnectionFactory"
+          p:keySerializer-ref="ss"
+          p:hashKeySerializer-ref="ss"
+          p:hashValueSerializer-ref="fast"
+          p:stringSerializer-ref="ss"
+          p:valueSerializer-ref="fast"/>
+</beans>

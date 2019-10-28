@@ -1,13 +1,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 							http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/context
 							http://www.springframework.org/schema/context/spring-context.xsd
                             http://www.springframework.org/schema/mvc
-							http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+							http://www.springframework.org/schema/mvc/spring-mvc.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描controller注解 -->
     <context:component-scan base-package="com.sdh" use-default-filters="false">
@@ -23,7 +26,7 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-    <!-- shiro组件 -->
+    <!-- shiro组件，开启注解 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
 
     <aop:config></aop:config>
@@ -37,4 +40,6 @@
 
     <!-- 定义无Controller的path<->view直接映射,设置项目默认打开项目 -->
     <mvc:view-controller path="/" view-name="redirect:/user/index" />
+
+    <bean class="com.sdh.resolver.MyExceptionResolver"></bean>
 </beans>

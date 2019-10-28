@@ -72,5 +72,6 @@
 
     <!-- 导入shiro -->
     <import resource="spring_shiro.xml"/>
+    <import resource="spring_redis.xml"/>
 
 </beans>

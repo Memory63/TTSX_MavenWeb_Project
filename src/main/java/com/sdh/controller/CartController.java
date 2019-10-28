@@ -69,7 +69,10 @@ public class CartController {
     @ResponseBody
     public Integer showCartCount(HttpSession session){
         User user = (User) session.getAttribute("user");
-        Integer num = cartService.getCountCart(user.getUid());
+        Integer num=0;
+        if(user!=null){
+            num = cartService.getCountCart(user.getUid());
+        }
         return num;
     }
 
